@@ -29,5 +29,14 @@ return [
             ]
         ],
         'files' => []
+    ],
+    'libFormatter' => [
+        'formats' => [
+            'profile' => [
+                'password' => [
+                    'type' => 'delete'
+                ]
+            ]
+        ]
     ]
 ];
