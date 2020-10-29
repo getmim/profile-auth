@@ -22,13 +22,20 @@ return [
                 ],
                 'index' => 1000
             ],
+            'app' => [
+                'type' => 'INT',
+                'attrs' => [
+                    'unsigned' => TRUE
+                ],
+                'index' => 2000
+            ],
             'profile' => [
                 'type' => 'INT',
                 'attrs' => [
                     'unsigned' => TRUE,
                     'null' => FALSE
                 ],
-                'index' => 2000
+                'index' => 3000
             ],
             'hash' => [
                 'type' => 'VARCHAR',
@@ -37,12 +44,12 @@ return [
                     'null' => false,
                     'unique' => true 
                 ],
-                'index' => 3000
+                'index' => 4000
             ],
             'expires' => [
                 'type' => 'DATETIME',
                 'attrs' => [],
-                'index' => 4000
+                'index' => 5000
             ],
             'updated' => [
                 'type' => 'TIMESTAMP',

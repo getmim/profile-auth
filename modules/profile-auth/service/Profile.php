@@ -21,19 +21,27 @@ class Profile extends \Mim\Service
 
 		// by cookie
 		$hash = \Mim::$app->req->getCookie($cookie_name);
-		if($hash){
-			$session = PSession::getOne(['hash'=>$hash]);
-			if($session){
-				$expires = strtotime($session->expires);
+		
+		// by header
+		if(!$hash)
+			$hash = \Mim::$app->req->getServer('HTTP_AUTHORIZATION');
+		
+		if(!$hash)
+			return;
 
-				if($expires < time()){
-					PSession::remove(['id'=>$session->id]);
-				}else{
-					$profile = _Profile::getOne(['id'=>$session->profile]);
-					if($profile){
-						$this->profile = $profile;
-						$this->session = $session;
-					}
+		$hash = strtolower($hash);
+
+		$session = PSession::getOne(['hash'=>$hash]);
+		if($session){
+			$expires = strtotime($session->expires);
+
+			if($expires < time()){
+				PSession::remove(['id'=>$session->id]);
+			}else{
+				$profile = _Profile::getOne(['id'=>$session->profile]);
+				if($profile){
+					$this->profile = $profile;
+					$this->session = $session;
 				}
 			}
 		}
@@ -41,6 +49,12 @@ class Profile extends \Mim\Service
 
 	public function isLogin(): bool{
 		return !!$this->profile;
+	}
+
+	public function getAuthorizer(): ?string{
+		if($this->profile)
+			return 'ProfileAuth\\Library\\Authorizer';
+		return null;
 	}
 
 	public function getSession(): ?object{

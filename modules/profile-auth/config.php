@@ -2,7 +2,7 @@
 
 return [
     '__name' => 'profile-auth',
-    '__version' => '0.1.0',
+    '__version' => '0.2.0',
     '__git' => 'git@github.com:getmim/profile-auth.git',
     '__license' => 'MIT',
     '__author' => [
@@ -30,6 +30,10 @@ return [
             'ProfileAuth\\Service' => [
                 'type' => 'file',
                 'base' => 'modules/profile-auth/service'
+            ],
+            'ProfileAuth\\Library' => [
+                'type' => 'file',
+                'base' => 'modules/profile-auth/library'
             ]
         ],
         'files' => []
@@ -49,6 +53,11 @@ return [
     'profileAuth' => [
         'cookie' => [
             'name' => '_pr_auth'
+        ]
+    ],
+    'libApp' => [
+        'authorizer' => [
+            'profile-auth' => 'profile'
         ]
     ]
 ];
