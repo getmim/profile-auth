@@ -61,6 +61,11 @@ class Profile extends \Mim\Service
 		return $this->session;
 	}
 
+	public function refetch(): void
+	{
+		$this->profile = _Profile::getOne(['id'=>$this->profile->id]);
+	}
+
 	public function __get(string $name){
 		if(!$this->profile)
 			return null;
